@@ -1,0 +1,29 @@
+{
+	"name": "positiveovertidfil",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Test_pos_over_time.csv",
+				"folderPath": "overvaagningsdata-covid19-25012022-f7tr",
+				"fileSystem": "covid19datassi"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Date;NewPositive;NotPrevPos;PosPct;PrevPos;Tested;Tested_kumulativ",
+				"type": "String"
+			}
+		]
+	}
+}
