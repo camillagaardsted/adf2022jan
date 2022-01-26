@@ -12,7 +12,15 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSynapseAnalyticsTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "Select1"
@@ -24,7 +32,7 @@
 					"name": "DerivedColumn1"
 				}
 			],
-			"script": "source(output(\n\t\tDate as string,\n\t\tNewPositive as string,\n\t\tNotPrevPos as string,\n\t\tPosPct as string,\n\t\tPrevPos as string,\n\t\tTested as string,\n\t\tTested_kumulativ as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 select(mapColumn(\n\t\tDato = Date,\n\t\tNyePositive = NewPositive,\n\t\tPositivPct = PosPct\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 filter(like(Dato,'%-%')) ~> Filter1\nFilter1 derive(NyePositive = toInteger(replace(NyePositive,'.','')),\n\t\tPositivPct = toDecimal(replace(PositivPct, ',', '.'))) ~> DerivedColumn1"
+			"script": "source(output(\n\t\tDate as string,\n\t\tNewPositive as string,\n\t\tNotPrevPos as string,\n\t\tPosPct as string,\n\t\tPrevPos as string,\n\t\tTested as string,\n\t\tTested_kumulativ as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 select(mapColumn(\n\t\tDato = Date,\n\t\tNyePositive = NewPositive,\n\t\tPositivPct = PosPct\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 filter(like(Dato,'%-%')) ~> Filter1\nFilter1 derive(NyePositive = toInteger(replace(NyePositive,'.','')),\n\t\tPositivPct = toDecimal(replace(PositivPct, ',', '.'))) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tDato as date,\n\t\tNyeSmittede as integer,\n\t\tPositivPct as decimal(9,2)\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tstaged: true,\n\tallowCopyCommand: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1"
 		}
 	}
 }

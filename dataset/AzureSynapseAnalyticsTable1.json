@@ -1,0 +1,32 @@
+{
+	"name": "AzureSynapseAnalyticsTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSynapseAnalytics1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "Dato",
+				"type": "date"
+			},
+			{
+				"name": "NyeSmittede",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PositivPct",
+				"type": "decimal",
+				"precision": 9,
+				"scale": 2
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Covid19PositiveOverTid"
+		}
+	}
+}
