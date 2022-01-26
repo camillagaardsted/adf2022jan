@@ -21,7 +21,31 @@
 		},
 		"schema": [
 			{
-				"name": "Date;NewPositive;NotPrevPos;PosPct;PrevPos;Tested;Tested_kumulativ",
+				"name": "Date",
+				"type": "String"
+			},
+			{
+				"name": "NewPositive",
+				"type": "String"
+			},
+			{
+				"name": "NotPrevPos",
+				"type": "String"
+			},
+			{
+				"name": "PosPct",
+				"type": "String"
+			},
+			{
+				"name": "PrevPos",
+				"type": "String"
+			},
+			{
+				"name": "Tested",
+				"type": "String"
+			},
+			{
+				"name": "Tested_kumulativ",
 				"type": "String"
 			}
 		]
